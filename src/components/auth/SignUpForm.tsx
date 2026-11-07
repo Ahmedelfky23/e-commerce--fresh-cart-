@@ -270,6 +270,17 @@ export default function SignUpForm() {
         )}
         {isSubmitting ? "Creating Account..." : "Create My Account"}
       </button>
+
+      {/* Link to Sign In */}
+      <div className="flex items-center justify-center gap-1.5 text-center text-sm font-medium text-[#6a7282]">
+        <span>Already have an account?</span>
+        <Link
+          href="/signin"
+          className="font-bold text-brand transition-colors hover:text-[#15803d] hover:underline"
+        >
+          Sign In
+        </Link>
+      </div>
     </form>
   );
 }

@@ -155,6 +155,17 @@ export default function SignInForm() {
           )}
           {isSubmitting ? "Signing In..." : "Sign In"}
         </button>
+
+        {/* Link to Sign Up */}
+        <div className="flex items-center justify-center gap-1.5 text-center text-sm font-medium text-[#6a7282]">
+          <span>Don&apos;t have an account?</span>
+          <Link
+            href="/signup"
+            className="font-bold text-brand transition-colors hover:text-[#15803d] hover:underline"
+          >
+            Sign Up
+          </Link>
+        </div>
       </form>
     </>
   );
