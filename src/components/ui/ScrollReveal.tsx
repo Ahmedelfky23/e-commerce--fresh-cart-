@@ -6,64 +6,69 @@ interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
   delay?: number; // Delay in milliseconds
-  duration?: number; // Duration in seconds (e.g. 0.95)
+  duration?: number; // Duration in seconds
   direction?: "up" | "down" | "left" | "right" | "fade";
-  threshold?: number;
 }
 
 export default function ScrollReveal({
   children,
   className = "",
   delay = 0,
-  duration = 0.95,
+  duration = 0.8,
   direction = "up",
-  threshold = 0.08,
 }: ScrollRevealProps) {
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const element = elementRef.current;
-    if (!element) return;
+    // صمام أمان فوري: إظهار المحتوى تلقائياً في حال تأخر الـ observer أو على الموبايل
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 400);
 
-    // Use IntersectionObserver to detect when element enters viewport
+    const element = elementRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
           setIsVisible(true);
+          clearTimeout(fallbackTimer);
           observer.unobserve(element);
         }
       },
       {
-        threshold,
-        rootMargin: "0px 0px -30px 0px",
+        threshold: 0,
+        // تفعيل الأنيميشن قبل وصول العنصر للشاشة بـ 150px حتى لا يرى المستخدم صفحة بيضاء أبداً
+        rootMargin: "150px 0px 50px 0px",
       },
     );
 
     observer.observe(element);
 
     return () => {
+      clearTimeout(fallbackTimer);
       observer.disconnect();
     };
-  }, [threshold]);
+  }, []);
 
-  // Determine initial transform based on direction
-  const getTransform = () => {
-    if (isVisible) return "none";
+  const getInitialTransform = () => {
     switch (direction) {
-      case "up":
-        return "translateY(32px)";
-      case "down":
-        return "translateY(-32px)";
-      case "left":
-        return "translateX(-32px)";
-      case "right":
-        return "translateX(32px)";
       case "fade":
         return "none";
+      case "down":
+        return "translateY(-24px)";
+      case "left":
+        return "translateX(-24px)";
+      case "right":
+        return "translateX(24px)";
+      case "up":
       default:
-        return "translateY(32px)";
+        return "translateY(24px)";
     }
   };
 
@@ -72,7 +77,7 @@ export default function ScrollReveal({
       ref={elementRef}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: getTransform(),
+        transform: isVisible ? "none" : getInitialTransform(),
         transition: `opacity ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
         willChange: "opacity, transform",
       }}
@@ -82,4 +87,3 @@ export default function ScrollReveal({
     </div>
   );
 }
-

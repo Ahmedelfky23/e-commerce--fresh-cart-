@@ -37,7 +37,7 @@ export default function ProductCard({
   return (
     <div
       className={cn(
-        "reveal-on-scroll group flex h-full flex-col overflow-hidden rounded-lg border border-[#e5e7eb] bg-white transition-shadow duration-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]",
+        "group flex h-full flex-col overflow-hidden rounded-lg border border-[#e5e7eb] bg-white transition-shadow duration-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]",
         className,
       )}
     >

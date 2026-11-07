@@ -17,22 +17,20 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <ScrollReveal direction="fade" duration={1.1}>
-        <HeroBanner />
-      </ScrollReveal>
-      <ScrollReveal direction="up" delay={50} duration={1}>
+      <HeroBanner />
+      <ScrollReveal direction="up" delay={50} duration={0.85}>
         <TrustFeatures />
       </ScrollReveal>
-      <ScrollReveal direction="up" delay={80} duration={1}>
+      <ScrollReveal direction="up" delay={50} duration={0.85}>
         <CategorySection categories={categories} />
       </ScrollReveal>
-      <ScrollReveal direction="up" delay={80} duration={1}>
+      <ScrollReveal direction="up" delay={50} duration={0.85}>
         <PromoBanners />
       </ScrollReveal>
-      <ScrollReveal direction="up" delay={80} duration={1}>
+      <ScrollReveal direction="up" delay={50} duration={0.85}>
         <FeaturedProducts products={products} />
       </ScrollReveal>
-      <ScrollReveal direction="up" delay={80} duration={1}>
+      <ScrollReveal direction="up" delay={50} duration={0.85}>
         <NewsletterApp />
       </ScrollReveal>
     </div>

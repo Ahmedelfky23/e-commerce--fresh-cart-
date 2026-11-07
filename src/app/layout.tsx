@@ -24,7 +24,6 @@ import TopBar from "@/components/layout/TopBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FeatureStrip from "@/components/home/FeatureStrip";
-import ScrollObserver from "@/components/ui/ScrollObserver";
 import { getAllCategories } from "@/api/services/api.service";
 import type { CategoryType } from "@/types";
 import { MyProvider } from "@/components/layout/MyProvider";
@@ -44,7 +43,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <MyProvider>
-          <ScrollObserver />
           <TopBar />
           <Navbar categories={categories} />
           <main className="flex-1">{children}</main>

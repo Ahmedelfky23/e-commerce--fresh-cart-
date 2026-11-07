@@ -23,7 +23,7 @@ const features = [
 
 export default function FeatureStrip() {
   return (
-    <section className="reveal-on-scroll w-full border-y border-[#dcfce7] bg-[#f0fdf4] py-6">
+    <section className="w-full border-y border-[#dcfce7] bg-[#f0fdf4] py-6">
       <div className="mx-auto max-w-384 px-4">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
           {features.map((feature) => (
