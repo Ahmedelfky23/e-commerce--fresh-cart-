@@ -1,0 +1,45 @@
+"use server";
+
+import { getMytoken } from "@/utilities";
+
+const API_URL = "https://ecommerce.routemisr.com/api/v1/wishlist";
+
+async function wishlistRequest(endpoint = "", method = "GET", body?: object) {
+  const token = await getMytoken();
+
+  if (!token) {
+    return { status: "fail", message: "Please sign in first" };
+  }
+
+  try {
+    const res = await fetch(`${API_URL}${endpoint}`, {
+      method,
+      headers: {
+        token,
+        "content-type": "application/json",
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      cache: "no-store",
+    });
+
+    return await res.json();
+  } catch (error) {
+    return {
+      status: "fail",
+      message: error instanceof Error ? error.message : "Something went wrong",
+    };
+  }
+}
+
+export async function addToWishlist(productId: string) {
+  return wishlistRequest("", "POST", { productId });
+}
+
+export async function getLoggedUserWishlist() {
+  return wishlistRequest();
+}
+
+export async function removeFromWishlist(productId: string) {
+  return wishlistRequest(`/${productId}`, "DELETE");
+}
+
