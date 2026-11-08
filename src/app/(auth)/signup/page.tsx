@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AuthShell from "@/components/auth/AuthShell";
 import SocialAuth from "@/components/auth/SocialAuth";
 import SignUpForm from "@/components/auth/SignUpForm";
@@ -116,15 +115,7 @@ export default function SignUpPage() {
           <SignUpForm />
         </div>
 
-        <p className="mt-8 border-t border-[#d1d5dc] pt-10 text-center text-base leading-6 font-medium text-[#364153]">
-          Already have an account?{" "}
-          <Link
-            href="/signin"
-            className="font-semibold text-brand transition-colors hover:text-[#15803d]"
-          >
-            Sign In
-          </Link>
-        </p>
+      
       </div>
     </AuthShell>
   );
